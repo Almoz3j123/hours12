@@ -1,399 +1,185 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Hours Tracker</title>
+    <title>تسجيل الدخول</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            height: 100vh;
-            background-image: url('https://www.google.com/imgres?imgurl=https://img.pikbest.com/backgrounds/20190408/background-of-training-course-leaflet_1807435.jpg!f305cw&tbnid=RHKHjC3i-QoWFM&vet=1&imgrefurl=https://ar.pikbest.com/free-backgrounds/%25D8%25AA%25D8%25B5%25D9%2585%25D9%258A%25D9%2585-%25D8%25AF%25D9%2588%25D8%25B1%25D8%25A9-%25D8%25AA%25D8%25AF%25D8%25B1%25D9%258A%25D8%25A8%25D9%258A%25D8%25A9.html&docid=yiYOMsLZi0iMhM&w=305&h=440&source=sh/x/im/m1/6&kgs=6ad42c662cf09724&shem=abme,trie'); /* استبدل بـ URL الصورة الخاص بك */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #f0f0f5;
+            text-align: center;
+            padding: 50px;
         }
         .container {
-            background-color: rgba(255, 255, 255, 0.9); /* لون الخلفية مع الشفافية */
+            max-width: 500px;
+            margin: auto;
+            background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 1200px; /* تعديل العرض الأقصى للحاوية */
-            height: 100%;
-            box-sizing: border-box;
-            overflow: auto; /* لمنع تجاوز المحتوى */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .container h2 {
-            margin-bottom: 20px;
-        }
-        .container input, .container select {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
+        button {
+            background-color: #4CAF50;
             color: white;
+            padding: 15px 20px;
+            margin: 10px 0;
             border: none;
-            border-radius: 4px;
-            font-size: 16px;
+            border-radius: 5px;
             cursor: pointer;
-        }
-        .container button:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            margin-top: 10px;
-        }
-        .login-container, .tracker-container, .admin-container {
-            display: none;
-        }
-        .login-container.active, .tracker-container.active, .admin-container.active {
-            display: block;
-        }
-        table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 16px;
         }
-        table, th, td {
-            border: 1px solid #ddd;
+        button:hover {
+            background-color: #45a049;
         }
-        th, td {
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        .btn {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .btn-delete {
-            background-color: #dc3545;
-        }
-        .btn-edit {
-            background-color: #ffc107;
-        }
-        .btn-add {
-            background-color: #28a745;
-        }
-        .btn-delete:hover {
-            background-color: #c82333;
-        }
-        .btn-edit:hover {
-            background-color: #e0a800;
-        }
-        .btn-add:hover {
-            background-color: #218838;
-        }
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .admin-header button {
-            margin: 0 10px;
-        }
-        #editForm {
-            display: none;
-            margin-top: 20px;
+        input {
+            width: calc(100% • 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
 <body>
-    <!-- Login Container -->
-    <div class="container login-container" id="loginContainer">
-        <h2>Login</h2>
-        <select id="userRole">
-            <option value="admin">Admin</option>
-            <option value="client">Client</option>
-        </select>
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button onclick="login()">Login</button>
-        <p class="message" id="loginMessage"></p>
-    </div>
 
-    <!-- Tracker Container for Clients -->
-    <div class="container tracker-container" id="trackerContainer">
-        <h2>Work Hours Tracker</h2>
-        <input type="text" id="name" placeholder="Name" required>
-        <input type="tel" id="phone" placeholder="Phone Number" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="text" id="task" placeholder="Task Description" required>
-        <select id="hours">
-            <option value="1">1 hour</option>
-            <option value="2">2 hours</option>
-            <option value="3">3 hours</option>
-            <option value="5">5 hours</option>
-        </select>
-        <button onclick="logHours()">Log Hours</button>
-        <p class="message" id="trackerMessage"></p>
-        <button onclick="sendOTP()">Send OTP</button>
-        <button onclick="logout()">Logout</button>
+<div id="login" class="container">
+    <h2>تسجيل دخول</h2>
+    <button onclick="showRegistration()">تسجيل كعميل</button>
+    <button onclick="showAdminLogin()">لوحة الادمن</button>
+</div>
 
-        <!-- جدول ساعات العمل الخاص بالعميل (مخفي في واجهة العميل) -->
-        <table id="log">
-            <thead>
-                <tr>
-                    <th>Token</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Task Description</th>
-                    <th>Hours Worked</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Logs will be added here dynamically -->
-            </tbody>
-        </table>
-    </div>
+<div id="registration" class="container" style="display:none;">
+    <h2>التسجيل في الكورس</h2>
+    <input type="text" id="name" placeholder="الاسم">
+    <input type="text" id="phone" placeholder="رقم الهاتف">
+    <input type="number" id="hours" placeholder="عدد الساعات" min="1" max="24">
+    <input type="text" id="notes" placeholder="ملاحظات">
+    <button onclick="register()">تسجيل</button>
+    <button onclick="goBack()">رجوع</button>
+</div>
 
-    <!-- Admin Container -->
-    <div class="container admin-container" id="adminContainer">
-        <div class="admin-header">
-            <h2>Admin Dashboard</h2>
-            <button onclick="addUser()">Add New User</button>
-            <button onclick="logout()">Logout</button>
-        </div>
+<div id="adminLogin" class="container" style="display:none;">
+    <h2>لوحة الادمن</h2>
+    <input type="text" id="adminUser" placeholder="اسم المستخدم">
+    <input type="password" id="adminPassword" placeholder="كلمة المرور">
+    <button onclick="adminLogin()">دخول</button>
+    <button onclick="goBack()">رجوع</button>
+</div>
 
-        <!-- جدول الإدارة (يظل مرئيًا) -->
-        <table id="adminLog">
-            <thead>
-                <tr>
-                    <th>Token</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Task Description</th>
-                    <th>Hours Worked</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Logs will be added here dynamically -->
-            </tbody>
-        </table>
+<div id="adminPanel" class="container" style="display:none;">
+    <h2>المستخدمين المسجلين</h2>
+    <button onclick="showChangePassword()">تغيير كلمة السر</button>
+    <div id="users"></div>
+    <button onclick="goBack()">خروج</button>
+</div>
 
-        <!-- Edit Form -->
-        <div id="editForm">
-            <h3>Edit Work Hours</h3>
-            <input type="text" id="editName" placeholder="Name">
-            <input type="tel" id="editPhone" placeholder="Phone Number">
-            <input type="email" id="editEmail" placeholder="Email">
-            <input type="text" id="editTask" placeholder="Task Description">
-            <select id="editHours">
-                <option value="1">1 hour</option>
-                <option value="2">2 hours</option>
-                <option value="3">3 hours</option>
-                <option value="5">5 hours</option>
-            </select>
-            <button onclick="saveEdit()">Save Changes</button>
-        </div>
-    </div>
+<div id="changePassword" class="container" style="display:none;">
+    <h2>تغيير كلمة السر</h2>
+    <input type="password" id="oldPassword" placeholder="كلمة السر القديمة">
+    <input type="password" id="newPassword" placeholder="كلمة السر الجديدة">
+    <button onclick="changePassword()">تغيير</button>
+    <button onclick="goBack()">رجوع</button>
+</div>
 
-    <script>
-        const adminCredentials = {
-            username: 'admin',
-            password: ''
-        };
+<p style="margin-top: 20px;">استمتع معنا بالكورس 🎉</p>
 
-        let editingIndex = -1;
-        let currentToken = '';
+<script>
+    let users = [];
+    let adminUsername = 'admin';
+    let adminPassword = 'admin';
 
-        function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const role = document.getElementById('userRole').value;
-            const message = document.getElementById('loginMessage');
+    function showRegistration() {
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('registration').style.display = 'block';
+    }
 
-            if (role === 'admin') {
-                if (username === adminCredentials.username && password === adminCredentials.password) {
-                    message.style.color = 'green';
-                    message.textContent = 'Login successful! Redirecting to Admin Dashboard...';
-                    setTimeout(() => {
-                        showAdmin();
-                    }, 1000);
-                } else {
-                    message.style.color = 'red';
-                    message.textContent = 'Invalid username or password';
-                }
-            } else if (role === 'client') {
-                currentToken = generateToken();
-                message.style.color = 'green';
-                message.textContent = 'Login successful! Redirecting to Work Hours Tracker...';
-                setTimeout(() => {
-                    showTracker();
-                }, 1000);
-            }
+    function showAdminLogin() {
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('adminLogin').style.display = 'block';
+    }
+
+    function goBack() {
+        document.getElementById('registration').style.display = 'none';
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'none';
+        document.getElementById('changePassword').style.display = 'none';
+        document.getElementById('login').style.display = 'block';
+    }
+
+    function register() {
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const hours = document.getElementById('hours').value;
+        const notes = document.getElementById('notes').value;
+
+        if (name && phone && hours) {
+            users.push({ name, phone, hours, notes });
+            alert('تم التسجيل بنجاح');
+            goBack();
+        } else {
+            alert('يرجى ملء جميع الحقول المطلوبة');
         }
+    }
 
-        function generateToken() {
-            return 'TOKEN-' + Math.random().toString(36).substr(2, 9);
+    function adminLogin() {
+        const user = document.getElementById('adminUser').value;
+        const password = document.getElementById('adminPassword').value;
+
+        if (user === adminUsername && password === adminPassword) {
+            document.getElementById('adminLogin').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            displayUsers();
+        } else {
+            alert('بيانات الدخول غير صحيحة');
         }
+    }
 
-        function showTracker() {
-            document.getElementById('loginContainer').classList.remove('active');
-            document.getElementById('trackerContainer').classList.add('active');
-            document.getElementById('adminContainer').classList.remove('active');
-        }
+    function displayUsers() {
+        const usersDiv = document.getElementById('users');
+        usersDiv.innerHTML = '';
+        users.forEach((user, index) => {
+            const userDiv = document.createElement('div');
+            userDiv.innerHTML = `
+                <p><strong>الاسم:</strong> ${user.name}</p>
+                <p><strong>رقم الهاتف:</strong> ${user.phone} <a href="https://wa.me/${user.phone}" target="_blank">شات</a></p>
+                <p><strong>عدد الساعات:</strong> ${user.hours}</p>
+                <p><strong>ملاحظات:</strong> ${user.notes}</p>
+                <button onclick="deleteUser(${index})">حذف</button>
+                <hr>
+            `;
+            usersDiv.appendChild(userDiv);
+        });
+    }
 
-        function logHours() {
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const task = document.getElementById('task').value;
-            const hours = document.getElementById('hours').value;
+    function deleteUser(index) {
+        users.splice(index, 1);
+        displayUsers();
+    }
 
-            if (name && phone && email && task) {
-                const logEntry = {
-                    token: currentToken,
-                    name,
-                    phone,
-                    email,
-                    task,
-                    hours
-                };
+    function showChangePassword() {
+        document.getElementById('adminPanel').style.display = 'none';
+        document.getElementById('changePassword').style.display = 'block';
+    }
 
-                // تخزين البيانات في localStorage
-                const logs = JSON.parse(localStorage.getItem('workLogs')) || [];
-                logs.push(logEntry);
-                localStorage.setItem('workLogs', JSON.stringify(logs));
+    function changePassword() {
+        const oldPassword = document.getElementById('oldPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
 
-                // رسالة نجاح
-                const message = document.getElementById('trackerMessage');
-                message.style.color = 'green';
-                message.textContent = 'Hours logged successfully!';
-
-                // إعادة تعيين الحقول
-                document.getElementById('name').value = '';
-                document.getElementById('phone').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('task').value = '';
-                document.getElementById('hours').value = '1';
-
-                sendOTP();
+        if (oldPassword === adminPassword) {
+            if (newPassword) {
+                adminPassword = newPassword;
+                alert('تم تغيير كلمة السر بنجاح');
+                goBack();
             } else {
-                const message = document.getElementById('trackerMessage');
-                message.style.color = 'red';
-                message.textContent = 'Please fill all fields.';
+                alert('يرجى إدخال كلمة سر جديدة');
             }
+        } else {
+            alert('كلمة السر القديمة غير صحيحة');
         }
+    }
+</script>
 
-        function sendOTP() {
-            const phone = document.getElementById('phone').value;
-            if (phone) {
-                console.log('OTP Sent to:', phone);
-                // هنا يمكنك إضافة كود لإرسال OTP عبر رقم الهاتف باستخدام API خارجي
-            } else {
-                console.log('Phone number is missing.');
-            }
-        }
-
-        function showAdmin() {
-            document.getElementById('loginContainer').classList.remove('active');
-            document.getElementById('trackerContainer').classList.remove('active');
-            document.getElementById('adminContainer').classList.add('active');
-
-            // عرض جدول الإدارة
-            document.getElementById('adminLog').style.display = 'table';
-            loadAdminLogs();
-        }
-
-        function loadAdminLogs() {
-            const adminLogTableBody = document.querySelector('#adminLog tbody');
-            const logs = JSON.parse(localStorage.getItem('workLogs')) || [];
-            adminLogTableBody.innerHTML = logs.map((log, index) => `
-                <tr>
-                    <td>${log.token}</td>
-                    <td>${log.name}</td>
-                    <td>${log.phone}</td>
-                    <td>${log.email}</td>
-                    <td>${log.task}</td>
-                    <td>${log.hours}</td>
-                    <td><button class="btn btn-edit" onclick="editLog(${index})">Edit</button></td>
-                    <td><button class="btn btn-delete" onclick="deleteLog(${index})">Delete</button></td>
-                </tr>
-            `).join('');
-        }
-
-        function editLog(index) {
-            const logs = JSON.parse(localStorage.getItem('workLogs')) || [];
-            const log = logs[index];
-            
-            document.getElementById('editName').value = log.name;
-            document.getElementById('editPhone').value = log.phone;
-            document.getElementById('editEmail').value = log.email;
-            document.getElementById('editTask').value = log.task;
-            document.getElementById('editHours').value = log.hours;
-            
-            editingIndex = index;
-            document.getElementById('editForm').style.display = 'block';
-        }
-
-        function saveEdit() {
-            const logs = JSON.parse(localStorage.getItem('workLogs')) || [];
-            const editedLog = {
-                token: logs[editingIndex].token,
-                name: document.getElementById('editName').value,
-                phone: document.getElementById('editPhone').value,
-                email: document.getElementById('editEmail').value,
-                task: document.getElementById('editTask').value,
-                hours: document.getElementById('editHours').value
-            };
-
-            logs[editingIndex] = editedLog;
-            localStorage.setItem('workLogs', JSON.stringify(logs));
-
-            loadAdminLogs();
-            document.getElementById('editForm').style.display = 'none';
-        }
-
-        function addUser() {
-            // إضافة مستخدم جديد لساعات العمل (لم يُطلب التفصيل في الكود الحالي)
-            console.log('Adding new user to work hours');
-        }
-
-        function deleteLog(index) {
-            const logs = JSON.parse(localStorage.getItem('workLogs')) || [];
-            logs.splice(index, 1);
-            localStorage.setItem('workLogs', JSON.stringify(logs));
-            loadAdminLogs();
-        }
-
-        function logout() {
-            showLogin();
-        }
-
-        function showLogin() {
-            document.getElementById('loginContainer').classList.add('active');
-            document.getElementById('trackerContainer').classList.remove('active');
-            document.getElementById('adminContainer').classList.remove('active');
-            document.getElementById('editForm').style.display = 'none';
-        }
-
-        // تشغيل عرض تسجيل الدخول بشكل افتراضي
-        showLogin();
-    </script>
 </body>
 </html>
